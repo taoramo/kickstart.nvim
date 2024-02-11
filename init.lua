@@ -149,13 +149,10 @@ require('lazy').setup({
         changedelete = { text = '~' },
       },
       on_attach = function(bufnr)
-<<<<<<< HEAD
         vim.keymap.set('n', '<leader>hp', require('gitsigns').preview_hunk,
           { buffer = bufnr, desc = 'Preview git hunk' })
 
         -- don't override the built-in and fugitive keymaps
-=======
->>>>>>> upstream/master
         local gs = package.loaded.gitsigns
 
         local function map(mode, l, r, opts)
@@ -414,15 +411,12 @@ end
 local function live_grep_git_root()
   local git_root = find_git_root()
   if git_root then
-<<<<<<< HEAD
     require('telescope.builtin').live_grep({
       search_dirs = { git_root },
     })
-=======
     require('telescope.builtin').live_grep {
       search_dirs = { git_root },
     }
->>>>>>> upstream/master
   end
 end
 
@@ -708,7 +702,7 @@ cmp.setup {
   },
   sources = {
     { name = 'nvim_lsp' },
-    { name = 'luasnip' },
+--    { name = 'luasnip' },
     { name = 'path' },
   },
 }
