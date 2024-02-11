@@ -3,18 +3,6 @@
 --
 -- See the kickstart.nvim README for more information
 return {
-  { "hardyrafael17/norminette42.nvim" },
-  {
-    "hardyrafael17/norminette42.nvim",
-    config = function()
-      local norminette = require("norminette")
-      norminette.setup({
-        runOnSave = true,
-        maxErrorsToShow = 5,
-        active = true,
-      })
-    end,
-  },
   {
     "ThePrimeagen/harpoon",
     branch = "harpoon2",
