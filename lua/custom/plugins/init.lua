@@ -21,4 +21,23 @@ return {
       map("<leader>4", function() harpoon:list():select(4) end)
     end
   },
+	{
+		"vinicius507/norme.nvim",
+		dependencies = { "jose-elias-alvarez/null-ls.nvim" }
+	},
+  { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+  {
+  "folke/tokyonight.nvim",
+  lazy = false,
+  priority = 1000,
+  opts = {},
+  },
+  {
+    'freddiehaddad/feline.nvim',
+    opts = {}
+  },
+  {
+    "nvim-telescope/telescope-file-browser.nvim",
+    dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
+  },
 }

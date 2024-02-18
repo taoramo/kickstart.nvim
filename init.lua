@@ -54,6 +54,7 @@ vim.opt.shiftwidth = 4
 vim.opt.smartindent = true
 vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 vim.opt.undofile = true
+vim.o.termguicolors = true
 
 
 -- [[ Install `lazy.nvim` plugin manager ]]
@@ -214,7 +215,6 @@ require('lazy').setup({
       end,
     },
   },
-
   {
     -- Theme inspired by Atom
     'navarasu/onedark.nvim',
@@ -232,11 +232,12 @@ require('lazy').setup({
   {
     -- Set lualine as statusline
     'nvim-lualine/lualine.nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
     -- See `:help lualine.txt`
     opts = {
       options = {
-        icons_enabled = false,
-        theme = 'auto',
+        icons_enabled = true,
+        theme = 'nightfly',
         component_separators = '|',
         section_separators = '',
       },
@@ -379,7 +380,7 @@ require('telescope').setup {
     },
   },
 }
-
+require("telescope").load_extension "file_browser"
 -- Enable telescope fzf native, if installed
 pcall(require('telescope').load_extension, 'fzf')
 
@@ -449,6 +450,7 @@ vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc
 vim.keymap.set('n', '<leader>sG', ':LiveGrepGitRoot<cr>', { desc = '[S]earch by [G]rep on Git Root' })
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = '[S]earch [R]esume' })
+vim.keymap.set('n', '<leader>fb', require "telescope".extensions.file_browser.file_browser, { desc = '[F]ile [B]rowser'})
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
@@ -677,7 +679,7 @@ cmp.setup {
     ['<C-b>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
     ['<C-Space>'] = cmp.mapping.complete {},
-    ['<CR>'] = cmp.mapping.confirm {
+    ['<C-y>'] = cmp.mapping.confirm {
       behavior = cmp.ConfirmBehavior.Replace,
       select = true,
     },
@@ -702,9 +704,20 @@ cmp.setup {
   },
   sources = {
     { name = 'nvim_lsp' },
---    { name = 'luasnip' },
     { name = 'path' },
+    { name = 'luasnip' },
   },
 }
+local null_ls = require("null-ls")
+
+null_ls.setup({
+    sources = {
+        null_ls.builtins.formatting.stylua,
+        null_ls.builtins.diagnostics.eslint,
+        null_ls.builtins.completion.spell,
+    },
+})
+require("norme").setup()
+vim.cmd.colorscheme "tokyonight"
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
